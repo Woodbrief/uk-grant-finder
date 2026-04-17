@@ -509,12 +509,12 @@ function renderBrowse() {
    SCHEME CARD RENDERER
    ============================================================ */
 const CATEGORY_ICONS = {
-  'retrofit':          '⚡',
-  'adaptation':        '♿',
-  'empty-homes':       '🏚',
-  'heritage':          '🏛',
-  'affordable-housing':'🏘',
-  'supported-housing': '🤝',
+  'retrofit':          '',
+  'adaptation':        '',
+  'empty-homes':       '',
+  'heritage':          '',
+  'affordable-housing':'',
+  'supported-housing': '',
 };
 
 const CATEGORY_LABELS = {

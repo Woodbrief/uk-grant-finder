@@ -1,7 +1,9 @@
 /* ============================================================
-   UK Property Grant Finder — styles.css
-   Mobile-first, CSS custom properties for Ghost theme overrides
+   UK Property Grant Finder - styles.css
+   Woodbrief branding. Mobile-first, CSS custom properties.
    ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --gf-primary:       #1B3D2F;
@@ -21,6 +23,7 @@
   --gf-shadow-md:     0 4px 6px rgba(0,0,0,.07), 0 10px 30px rgba(0,0,0,.08);
   --gf-transition:    0.18s ease;
   --gf-font:          'Inter', system-ui, -apple-system, sans-serif;
+  --gf-font-heading:  'Playfair Display', Georgia, serif;
 }
 
 /* ── Reset ── */
@@ -108,13 +111,20 @@ a:focus-visible {
   gap: 16px;
 }
 .gf-site-logo {
-  font-size: 17px;
+  font-family: var(--gf-font-heading);
+  font-size: 20px;
   font-weight: 700;
   color: #fff;
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+}
+.gf-site-logo svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+  flex-shrink: 0;
 }
 .gf-site-logo:hover { color: #d1fae5; }
 .gf-site-nav {
@@ -159,8 +169,9 @@ a:focus-visible {
   margin-bottom: 14px;
 }
 .gf-hero h1 {
-  font-size: clamp(22px, 4vw, 36px);
-  font-weight: 800;
+  font-family: var(--gf-font-heading);
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 700;
   color: var(--gf-primary);
   line-height: 1.2;
   margin-bottom: 12px;
@@ -257,6 +268,7 @@ a:focus-visible {
   margin-bottom: 20px;
 }
 .gf-card h2 {
+  font-family: var(--gf-font-heading);
   font-size: 19px;
   font-weight: 700;
   color: var(--gf-primary);
@@ -312,10 +324,9 @@ a:focus-visible {
   outline-offset: 2px;
 }
 .gf-option-icon {
-  font-size: 24px;
-  margin-bottom: 6px;
-  display: block;
+  display: none;
 }
+.gf-no-results-icon { display: none; }
 .gf-option-label {
   font-size: 13px;
   font-weight: 600;
@@ -912,8 +923,9 @@ a:focus-visible {
   margin: 0 auto;
 }
 .gf-about-layout h1 {
+  font-family: var(--gf-font-heading);
   font-size: clamp(24px, 4vw, 36px);
-  font-weight: 800;
+  font-weight: 700;
   color: var(--gf-primary);
   margin-bottom: 8px;
 }
@@ -927,6 +939,7 @@ a:focus-visible {
   margin-bottom: 40px;
 }
 .gf-about-section h2 {
+  font-family: var(--gf-font-heading);
   font-size: 20px;
   font-weight: 700;
   color: var(--gf-primary);
