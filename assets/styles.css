@@ -122,13 +122,17 @@ a:focus-visible {
   gap: 10px;
 }
 .gf-site-logo svg {
-  width: 22px;
-  height: 22px;
-  fill: var(--gf-primary);
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: var(--gf-primary);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   flex-shrink: 0;
 }
 .gf-site-logo:hover { color: var(--gf-primary-light); }
-.gf-site-logo:hover svg { fill: var(--gf-primary-light); }
+.gf-site-logo:hover svg { stroke: var(--gf-primary-light); }
 .gf-site-nav {
   display: flex;
   gap: 8px;
