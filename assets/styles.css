@@ -126,7 +126,7 @@ a:focus-visible {
   height: 28px;
   fill: none;
   stroke: var(--gf-primary);
-  stroke-width: 4;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
   flex-shrink: 0;
