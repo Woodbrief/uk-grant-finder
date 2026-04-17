@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UK Property Grant Finder — Free Research Tool</title>
+  <title>UK Property Grant Finder  -  Free Research Tool</title>
   <meta name="description" content="A free, independent research tool that signposts publicly available UK grant schemes for property works including retrofit, adaptations, empty homes, and heritage repairs.">
   <meta name="robots" content="index, follow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -437,7 +437,7 @@
           </div>
           <p class="gf-results-note">
             The schemes below passed the basic criteria filters based on your selections.
-            This is not an eligibility assessment — always verify with the official source before acting.
+            This is not an eligibility assessment  -  always verify with the official source before acting.
           </p>
           <div id="gf-results-list" aria-live="polite"></div>
           <div class="gf-reset-row">
@@ -463,8 +463,18 @@
             <div class="gf-filter-group">
               <label for="gf-browse-search">Search</label>
               <input type="search" id="gf-browse-search" class="gf-search-input"
-                     placeholder="Search name, provider…"
+                     placeholder="Search name, provider..."
                      aria-label="Search schemes by name or provider">
+            </div>
+
+            <div class="gf-filter-group">
+              <label for="gf-filter-audience">Who is it for?</label>
+              <select id="gf-filter-audience" class="gf-filter-select" aria-label="Filter by audience">
+                <option value="">All audiences</option>
+                <option value="landlord">Landlords</option>
+                <option value="organisation">Organisations</option>
+                <option value="household">Households</option>
+              </select>
             </div>
 
             <div class="gf-filter-group">
@@ -579,7 +589,7 @@
     <div class="gf-footer-inner">
       <div>
         <p><strong style="color:#fff;">UK Property Grant Finder</strong></p>
-        <p>Independent research tool — not affiliated with any scheme operator or government body.</p>
+        <p>Independent research tool  -  not affiliated with any scheme operator or government body.</p>
         <p class="gf-footer-disclaimer">
           This tool does not assess eligibility or provide advice.
           Always verify on the official scheme page before acting.

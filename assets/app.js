@@ -1,5 +1,5 @@
 /**
- * UK Property Grant Finder — app.js
+ * UK Property Grant Finder  -  app.js
  * No framework, no build step. Vanilla ES2020.
  */
 
@@ -24,6 +24,7 @@ const state = {
   grants: [],
   // Browse filters
   browseSearch: '',
+  browseAudience: '',
   browseCountry: '',
   browseCategory: '',
   browsePropertyType: '',
@@ -355,6 +356,7 @@ function renderWizardResults(grants) {
    ============================================================ */
 function initBrowse() {
   const searchInput = document.getElementById('gf-browse-search');
+  const audienceSelect = document.getElementById('gf-filter-audience');
   const countrySelect = document.getElementById('gf-filter-country');
   const categorySelect = document.getElementById('gf-filter-category');
   const propertySelect = document.getElementById('gf-filter-property');
@@ -363,6 +365,7 @@ function initBrowse() {
 
   function onFilterChange() {
     state.browseSearch = searchInput ? searchInput.value.toLowerCase() : '';
+    state.browseAudience = audienceSelect ? audienceSelect.value : '';
     state.browseCountry = countrySelect ? countrySelect.value : '';
     state.browseCategory = categorySelect ? categorySelect.value : '';
     state.browsePropertyType = propertySelect ? propertySelect.value : '';
@@ -371,13 +374,14 @@ function initBrowse() {
     renderBrowse();
   }
 
-  [searchInput, countrySelect, categorySelect, propertySelect, worksSelect].forEach(el => {
+  [searchInput, audienceSelect, countrySelect, categorySelect, propertySelect, worksSelect].forEach(el => {
     if (el) el.addEventListener('input', onFilterChange);
   });
 
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
       if (searchInput) searchInput.value = '';
+      if (audienceSelect) audienceSelect.value = '';
       if (countrySelect) countrySelect.value = '';
       if (categorySelect) categorySelect.value = '';
       if (propertySelect) propertySelect.value = '';
@@ -399,6 +403,7 @@ function persistFiltersToURL() {
   };
 
   setOrDelete('q', state.browseSearch);
+  setOrDelete('audience', state.browseAudience);
   setOrDelete('country', state.browseCountry);
   setOrDelete('category', state.browseCategory);
   setOrDelete('proptype', state.browsePropertyType);
@@ -411,40 +416,64 @@ function restoreFiltersFromURL() {
   const params = new URLSearchParams(window.location.search);
 
   const q = params.get('q') || '';
+  const audience = params.get('audience') || '';
   const country = params.get('country') || '';
   const category = params.get('category') || '';
   const proptype = params.get('proptype') || '';
   const works = params.get('works') || '';
 
-  if (q || country || category || proptype || works) {
+  if (q || audience || country || category || proptype || works) {
     // Switch to browse tab
     const browseTab = document.querySelector('[data-tab="browse"]');
     if (browseTab) browseTab.click();
   }
 
   const searchInput = document.getElementById('gf-browse-search');
+  const audienceSelect = document.getElementById('gf-filter-audience');
   const countrySelect = document.getElementById('gf-filter-country');
   const categorySelect = document.getElementById('gf-filter-category');
   const propertySelect = document.getElementById('gf-filter-property');
   const worksSelect = document.getElementById('gf-filter-works');
 
   if (searchInput && q) searchInput.value = q;
+  if (audienceSelect && audience) audienceSelect.value = audience;
   if (countrySelect && country) countrySelect.value = country;
   if (categorySelect && category) categorySelect.value = category;
   if (propertySelect && proptype) propertySelect.value = proptype;
   if (worksSelect && works) worksSelect.value = works;
 
   state.browseSearch = q.toLowerCase();
+  state.browseAudience = audience;
   state.browseCountry = country;
   state.browseCategory = category;
   state.browsePropertyType = proptype;
   state.browseWorks = works;
 
-  if (q || country || category || proptype || works) renderBrowse();
+  if (q || audience || country || category || proptype || works) renderBrowse();
+}
+
+// Derive audience tags from tenures and tenantCriteria
+function getAudiences(grant) {
+  const audiences = new Set();
+  const landlordTenures = ['private-landlord', 'ltd-company'];
+  const orgTenures = ['housing-association', 'registered-provider', 'charity'];
+  (grant.tenures || []).forEach(t => {
+    if (landlordTenures.includes(t)) audiences.add('landlord');
+    if (orgTenures.includes(t)) audiences.add('organisation');
+  });
+  // Grants with tenant criteria or adaptation category target households
+  if ((grant.tenantCriteria && grant.tenantCriteria.length > 0) || grant.category === 'adaptation') {
+    audiences.add('household');
+  }
+  return [...audiences];
 }
 
 function filterGrants() {
   return state.grants.filter(g => {
+    if (state.browseAudience) {
+      const audiences = getAudiences(g);
+      if (!audiences.includes(state.browseAudience)) return false;
+    }
     if (state.browseCountry && !g.countries.includes(state.browseCountry)) return false;
     if (state.browseCategory && g.category !== state.browseCategory) return false;
     if (state.browsePropertyType && !g.propertyTypes.includes(state.browsePropertyType)) return false;
@@ -532,7 +561,7 @@ function renderSchemeCard(grant, context) {
           <ul>${grant.eligibilitySummary.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
         </div>
         <div class="gf-body-section">
-          <h4>How to apply (signpost only — verify with provider)</h4>
+          <h4>How to apply (signpost only  -  verify with provider)</h4>
           <ol>${grant.howToApply.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
         </div>
         ${grant.fundingNotes ? `<div class="gf-body-section"><h4>Funding notes</h4><p>${esc(grant.fundingNotes)}</p></div>` : ''}
@@ -541,7 +570,7 @@ function renderSchemeCard(grant, context) {
              class="gf-btn gf-btn-primary">
             View official scheme page ↗
           </a>
-          ${grant.verify ? `<span class="gf-verify-notice">⚠ Some details could not be confirmed — verify on the official page</span>` : ''}
+          ${grant.verify ? `<span class="gf-verify-notice">⚠ Some details could not be confirmed  -  verify on the official page</span>` : ''}
         </div>
       </div>
       <div class="gf-scheme-footer">
@@ -661,7 +690,7 @@ function openModal(grantId) {
     </div>
 
     <div class="gf-modal-section">
-      <h4>How to apply (signpost only — verify with the provider)</h4>
+      <h4>How to apply (signpost only  -  verify with the provider)</h4>
       <ol>${grant.howToApply.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
     </div>
 

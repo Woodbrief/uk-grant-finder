@@ -17,7 +17,7 @@
     "eligibilitySummary": [
       "Property must be in England, Scotland, or Wales",
       "The scheme states tenants or owners must receive qualifying means-tested benefits, or the property must score low on a LA flex referral",
-      "EPC rating D–G typically required (verify with supplier)",
+      "EPC rating D-G typically required (verify with supplier)",
       "Private rented sector properties may apply where tenants meet benefit criteria",
       "Landlord must agree to installation access"
     ],
@@ -48,7 +48,7 @@
     "shortDescription": "The official scheme page lists GBIS as a separate obligation from ECO4, focused on delivering a single insulation measure to properties in the lower EPC bands. The scheme states it targets both low-income households and a broader group based on EPC band alone.",
     "eligibilitySummary": [
       "Property must be in England, Scotland, or Wales",
-      "EPC band D–G required for the low-income group; band D or E for the general group",
+      "EPC band D-G required for the low-income group; band D or E for the general group",
       "The scheme states one insulation measure per property is funded",
       "Private landlords may apply where tenants meet income criteria or property meets EPC threshold",
       "Verify current eligibility on the official Ofgem page"
@@ -83,7 +83,7 @@
       "An MCS-certified installer must be used; they apply on behalf of the property owner",
       "The scheme states existing heating system must be replaced (not supplemented)",
       "Properties with valid EPC and no outstanding recommendations for loft/cavity insulation (or evidence measures are unsuitable)",
-      "Landlords and private owners both listed as eligible — verify with the provider"
+      "Landlords and private owners both listed as eligible  -  verify with the provider"
     ],
     "howToApply": [
       "Find an MCS-certified heat-pump installer via the MCS installer database",
@@ -114,7 +114,7 @@
       "England only",
       "The scheme states properties must be EPC-rated E, F, or G",
       "Households must meet low-income or fuel-poverty criteria",
-      "Property must be off the gas grid (no gas central heating) — verify with local authority",
+      "Property must be off the gas grid (no gas central heating)  -  verify with local authority",
       "Private rented and owner-occupied properties may apply"
     ],
     "howToApply": [
@@ -147,7 +147,7 @@
       "Applicants must be registered providers of social housing or local authority landlords",
       "The scheme states target properties must be EPC D or below",
       "Applications made via competitive bidding to Homes England",
-      "Tenant benefit criteria may apply — verify with Homes England"
+      "Tenant benefit criteria may apply  -  verify with Homes England"
     ],
     "howToApply": [
       "Monitor Homes England and DESNZ for open funding rounds",
@@ -176,7 +176,7 @@
     "shortDescription": "The official scheme page lists Home Energy Scotland as offering free energy advice plus grants and loans for home energy improvements in Scotland. The scheme states it covers a wide range of measures including insulation, heating, and renewables.",
     "eligibilitySummary": [
       "Scotland only",
-      "Available to homeowners and some private landlords — verify current landlord eligibility with Home Energy Scotland",
+      "Available to homeowners and some private landlords  -  verify current landlord eligibility with Home Energy Scotland",
       "Income-based and universal strands exist; criteria vary by measure",
       "The scheme states properties must be permanently occupied as a main residence (owner-occupier rules apply)"
     ],
@@ -208,7 +208,7 @@
     "eligibilitySummary": [
       "Wales only",
       "The scheme states householders must receive a qualifying means-tested benefit, or have a health condition affected by cold homes",
-      "Private rented properties may be included where tenants meet criteria — verify with Nest Wales",
+      "Private rented properties may be included where tenants meet criteria  -  verify with Nest Wales",
       "EPC band E, F, or G typically required"
     ],
     "howToApply": [
@@ -239,7 +239,7 @@
     "eligibilitySummary": [
       "Northern Ireland only",
       "The scheme states households must receive qualifying benefits or meet low-income criteria",
-      "Private rented properties may qualify where tenants meet criteria — verify with the provider",
+      "Private rented properties may qualify where tenants meet criteria  -  verify with the provider",
       "Participating electricity suppliers administer delivery"
     ],
     "howToApply": [
@@ -262,7 +262,7 @@
     "tenures": ["private-landlord", "ltd-company", "other"],
     "worksCovered": ["disabled-adaptations"],
     "maxFunding": 30000,
-    "fundingNotes": "The official page lists a mandatory grant of up to £30,000 in England. Local authorities may top up beyond this figure — verify with your local authority.",
+    "fundingNotes": "The official page lists a mandatory grant of up to £30,000 in England. Local authorities may top up beyond this figure  -  verify with your local authority.",
     "tenantCriteria": ["disabled"],
     "epcBands": ["A", "B", "C", "D", "E", "F", "G"],
     "deadline": null,
@@ -303,7 +303,7 @@
       "Scotland only",
       "The scheme states local authorities are obliged to assist homeowners with essential repairs and adaptations",
       "Mandatory grants exist for adaptations to meet the needs of a disabled person",
-      "Private landlords may need to apply separately — verify with your local authority",
+      "Private landlords may need to apply separately  -  verify with your local authority",
       "Means-testing and criteria vary by local authority"
     ],
     "howToApply": [
@@ -336,7 +336,7 @@
       "The scheme states it primarily targets older people and those with disabilities or long-term health conditions",
       "Minor adaptations (grab rails, ramps) may be provided at no cost under Rapid Response",
       "Larger adaptations may be referred to the Disabled Facilities Grant process",
-      "Private rented properties may be covered — verify with local Care and Repair agency"
+      "Private rented properties may be covered  -  verify with local Care and Repair agency"
     ],
     "howToApply": [
       "Contact your local Care and Repair agency or local authority",
@@ -397,10 +397,10 @@
     "shortDescription": "The official scheme page lists local authority empty homes grants in Wales as funding to bring long-term empty properties back into use. The scheme states availability, amounts, and conditions vary by council.",
     "eligibilitySummary": [
       "Wales only",
-      "The scheme states properties must have been empty for a minimum period (varies by council, often 6–12 months)",
+      "The scheme states properties must have been empty for a minimum period (varies by council, often 6-12 months)",
       "Owner must commit to bringing the property back into use, often as affordable rented accommodation",
-      "Conditions on rental period and tenant type may apply — verify with your local authority",
-      "Not all Welsh councils operate a dedicated empty homes grant — check with your council"
+      "Conditions on rental period and tenant type may apply  -  verify with your local authority",
+      "Not all Welsh councils operate a dedicated empty homes grant  -  check with your council"
     ],
     "howToApply": [
       "Contact your local council's housing or empty homes team",
@@ -430,7 +430,7 @@
     "eligibilitySummary": [
       "Scotland only",
       "The Partnership advises owners of properties empty for six months or more",
-      "Local authority funding availability varies — the Partnership can signpost to relevant council schemes",
+      "Local authority funding availability varies  -  the Partnership can signpost to relevant council schemes",
       "Some councils operate loan or grant schemes for renovation of empty homes",
       "Verify current local authority funding with your council or the Partnership"
     ],
@@ -542,7 +542,7 @@
   },
   {
     "id": "ahp-2126",
-    "name": "Affordable Homes Programme 2021–26",
+    "name": "Affordable Homes Programme 2021-26",
     "provider": "Homes England",
     "category": "affordable-housing",
     "countries": ["england"],
@@ -554,7 +554,7 @@
     "tenantCriteria": ["low-income"],
     "epcBands": ["A", "B", "C"],
     "deadline": "2026-03-31",
-    "shortDescription": "The official scheme page lists the Affordable Homes Programme 2021–26 as providing capital grant to registered providers and others to deliver new affordable homes in England. The scheme states it targets social rent, affordable rent, and shared ownership.",
+    "shortDescription": "The official scheme page lists the Affordable Homes Programme 2021-26 as providing capital grant to registered providers and others to deliver new affordable homes in England. The scheme states it targets social rent, affordable rent, and shared ownership.",
     "eligibilitySummary": [
       "England only",
       "Applicants must be registered providers, local authorities, or approved development partners",
@@ -574,7 +574,7 @@
   },
   {
     "id": "sahp-2636",
-    "name": "Social and Affordable Homes Programme 2026–36",
+    "name": "Social and Affordable Homes Programme 2026-36",
     "provider": "Homes England / Greater London Authority (GLA)",
     "category": "affordable-housing",
     "countries": ["england"],
@@ -586,7 +586,7 @@
     "tenantCriteria": ["low-income"],
     "epcBands": ["A", "B", "C"],
     "deadline": "2036-03-31",
-    "shortDescription": "The official scheme page lists the Social and Affordable Homes Programme 2026–36 as the successor to AHP 2021–26, with a stated ambition of delivering 1.5 million new homes. The scheme states it covers social rent, affordable rent, and shared ownership across England.",
+    "shortDescription": "The official scheme page lists the Social and Affordable Homes Programme 2026-36 as the successor to AHP 2021-26, with a stated ambition of delivering 1.5 million new homes. The scheme states it covers social rent, affordable rent, and shared ownership across England.",
     "eligibilitySummary": [
       "England only (GLA administers London allocations separately)",
       "The scheme states applicants must be Homes England investment partners or GLA partners",
@@ -623,7 +623,7 @@
       "England only",
       "The scheme states households must meet low-income or benefit-receipt criteria",
       "Properties must be EPC-rated E, F, or G",
-      "Administered locally — availability varies by local authority area",
+      "Administered locally  -  availability varies by local authority area",
       "Verify current local delivery with your council before acting"
     ],
     "howToApply": [
@@ -655,14 +655,14 @@
       "Great Britain only (England, Scotland, Wales)",
       "The scheme states the installation must be MCS-certified (or equivalent)",
       "Capacity must be 5MW or below (or 50kW for micro-CHP)",
-      "The SEG is a payment mechanism, not a capital grant — it does not fund installation costs",
+      "The SEG is a payment mechanism, not a capital grant  -  it does not fund installation costs",
       "Verify current export tariff rates with your chosen electricity supplier"
     ],
     "howToApply": [
       "Install an eligible MCS-certified renewable system",
       "Apply to a SEG-licensed electricity supplier for an export tariff",
       "Ensure a suitable smart or export meter is installed",
-      "Compare rates between suppliers — the official page lists minimum eligibility obligations"
+      "Compare rates between suppliers  -  the official page lists minimum eligibility obligations"
     ],
     "officialUrl": "https://www.ofgem.gov.uk/environmental-and-social-schemes/smart-export-guarantee-seg",
     "lastVerified": "2026-04",
@@ -687,7 +687,7 @@
       "England only",
       "The scheme states applicants must be businesses with significant industrial energy consumption",
       "Projects must demonstrate meaningful energy savings or decarbonisation",
-      "Not designed for domestic residential property — included here as a signpost for commercial property owners",
+      "Not designed for domestic residential property  -  included here as a signpost for commercial property owners",
       "Verify current eligibility criteria and open rounds with DESNZ"
     ],
     "howToApply": [
