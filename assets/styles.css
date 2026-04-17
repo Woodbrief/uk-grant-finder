@@ -97,9 +97,10 @@ a:focus-visible {
 
 /* ── Site header ── */
 .gf-site-header {
-  background: var(--gf-primary);
-  color: #fff;
+  background: #ffffff;
+  color: var(--gf-primary);
   padding: 16px 0;
+  border-bottom: 1px solid var(--gf-border);
 }
 .gf-site-header-inner {
   max-width: 1200px;
@@ -114,7 +115,7 @@ a:focus-visible {
   font-family: var(--gf-font-heading);
   font-size: 20px;
   font-weight: 700;
-  color: #fff;
+  color: var(--gf-primary);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -123,17 +124,18 @@ a:focus-visible {
 .gf-site-logo svg {
   width: 22px;
   height: 22px;
-  fill: #fff;
+  fill: var(--gf-primary);
   flex-shrink: 0;
 }
-.gf-site-logo:hover { color: #d1fae5; }
+.gf-site-logo:hover { color: var(--gf-primary-light); }
+.gf-site-logo:hover svg { fill: var(--gf-primary-light); }
 .gf-site-nav {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 .gf-nav-link {
-  color: #d1fae5;
+  color: var(--gf-primary);
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
@@ -143,11 +145,11 @@ a:focus-visible {
 }
 .gf-nav-link:hover,
 .gf-nav-link.active {
-  background: rgba(255,255,255,.15);
-  color: #fff;
+  background: var(--gf-bg-off);
+  color: var(--gf-primary);
 }
 .gf-nav-link:focus-visible {
-  outline: 2px solid #d1fae5;
+  outline: 2px solid var(--gf-primary);
   outline-offset: 2px;
 }
 
