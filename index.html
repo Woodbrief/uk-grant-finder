@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UK Property Grant Finder — Free Research Tool</title>
+  <meta name="description" content="A free, independent research tool that signposts publicly available UK grant schemes for property works including retrofit, adaptations, empty homes, and heritage repairs.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <!-- ── Persistent disclaimer banner ── -->
+  <div class="gf-disclaimer" role="banner" aria-label="Important notice">
+    <div class="gf-disclaimer-inner">
+      <span class="gf-disclaimer-icon" aria-hidden="true">ℹ</span>
+      <span>
+        <strong>Research tool only.</strong>
+        This is a free research tool that signposts publicly available UK grant schemes.
+        It does not assess eligibility or provide advice.
+        Always verify current eligibility, funding levels, and deadlines on the official scheme page before acting.
+      </span>
+    </div>
+  </div>
+
+  <!-- ── Site header ── -->
+  <header class="gf-site-header" role="banner">
+    <div class="gf-site-header-inner">
+      <a href="index.html" class="gf-site-logo" aria-label="UK Property Grant Finder home">
+        🌿 UK Property Grant Finder
+      </a>
+      <nav class="gf-site-nav" aria-label="Main navigation">
+        <a href="index.html" class="gf-nav-link active" aria-current="page">Finder</a>
+        <a href="about.html" class="gf-nav-link">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Main content ── -->
+  <main class="gf-main" id="main-content">
+    <div class="gf-container">
+
+      <!-- Hero -->
+      <section class="gf-hero" aria-labelledby="hero-heading">
+        <span class="gf-hero-badge">Free Research Tool</span>
+        <h1 id="hero-heading">UK Property Grant Finder</h1>
+        <p>
+          A free, independent tool that signposts publicly available grant schemes
+          for property works across England, Scotland, Wales, and Northern Ireland.
+          All schemes link directly to their official source.
+        </p>
+      </section>
+
+      <!-- Tabs -->
+      <div class="gf-tabs" role="tablist" aria-label="Tool mode">
+        <button class="gf-tab active" data-tab="wizard"
+                role="tab" aria-selected="true" aria-controls="wizard-panel"
+                id="tab-wizard">
+          🧭 Eligibility Wizard
+        </button>
+        <button class="gf-tab" data-tab="browse"
+                role="tab" aria-selected="false" aria-controls="browse-panel"
+                id="tab-browse">
+          📋 Browse All Schemes
+        </button>
+      </div>
+
+      <!-- ========================================================
+           WIZARD PANEL
+           ======================================================== -->
+      <div class="gf-panel active" id="wizard-panel" role="tabpanel" aria-labelledby="tab-wizard">
+
+        <!-- Progress wrap (hidden when showing results) -->
+        <div class="gf-wizard" id="gf-progress-wrap" aria-hidden="false">
+          <div class="gf-progress">
+            <div class="gf-progress-meta">
+              <span id="gf-step-label">Step 1 of 6</span>
+              <span id="gf-step-pct">17%</span>
+            </div>
+            <div class="gf-progress-bar" role="progressbar"
+                 aria-valuemin="0" aria-valuemax="100" aria-valuenow="17"
+                 aria-label="Wizard progress">
+              <div class="gf-progress-fill" id="gf-progress-fill" style="width:17%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wizard form -->
+        <div id="gf-wizard-form" class="gf-wizard">
+
+          <!-- Step 1: Country + postcode -->
+          <div class="gf-step active" id="gf-step-1">
+            <div class="gf-card">
+              <h2>Where is your property?</h2>
+              <p class="gf-card-subtitle">Grant availability varies by nation and local authority. Select the country where the property is located.</p>
+              <div class="gf-options two-col" role="group" aria-label="Country">
+                <div class="gf-option" data-key="country" data-val="england"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+                  <span class="gf-option-label">England</span>
+                </div>
+                <div class="gf-option" data-key="country" data-val="scotland"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>
+                  <span class="gf-option-label">Scotland</span>
+                </div>
+                <div class="gf-option" data-key="country" data-val="wales"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏴󠁧󠁢󠁷󠁬󠁳󠁿</span>
+                  <span class="gf-option-label">Wales</span>
+                </div>
+                <div class="gf-option" data-key="country" data-val="northern-ireland"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🇬🇧</span>
+                  <span class="gf-option-label">Northern Ireland</span>
+                </div>
+              </div>
+              <div class="gf-postcode-wrap">
+                <label for="gf-postcode">
+                  Postcode <span class="gf-optional-label">optional</span>
+                </label>
+                <input type="text" id="gf-postcode" class="gf-postcode-input"
+                       placeholder="e.g. SW1A 1AA"
+                       maxlength="8"
+                       autocomplete="postal-code"
+                       aria-label="Property postcode (optional)">
+              </div>
+              <div class="gf-btn-row">
+                <span></span>
+                <button class="gf-btn gf-btn-primary" data-next-step="2" id="gf-next-1" disabled>
+                  Next →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Property type -->
+          <div class="gf-step" id="gf-step-2">
+            <div class="gf-card">
+              <h2>What type of property is it?</h2>
+              <p class="gf-card-subtitle">Select the type that best describes the property.</p>
+              <div class="gf-options" role="group" aria-label="Property type">
+                <div class="gf-option" data-key="propertyType" data-val="single-dwelling"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏠</span>
+                  <span class="gf-option-label">Single dwelling</span>
+                  <span class="gf-option-desc">House or bungalow</span>
+                </div>
+                <div class="gf-option" data-key="propertyType" data-val="flat"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏢</span>
+                  <span class="gf-option-label">Flat</span>
+                  <span class="gf-option-desc">Apartment or maisonette</span>
+                </div>
+                <div class="gf-option" data-key="propertyType" data-val="hmo"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏘</span>
+                  <span class="gf-option-label">HMO</span>
+                  <span class="gf-option-desc">House in multiple occupation</span>
+                </div>
+                <div class="gf-option" data-key="propertyType" data-val="block"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏗</span>
+                  <span class="gf-option-label">Block of flats</span>
+                  <span class="gf-option-desc">Multiple dwellings, one building</span>
+                </div>
+                <div class="gf-option" data-key="propertyType" data-val="listed"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏛</span>
+                  <span class="gf-option-label">Listed building</span>
+                  <span class="gf-option-desc">Listed or in a conservation area</span>
+                </div>
+                <div class="gf-option" data-key="propertyType" data-val="empty"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏚</span>
+                  <span class="gf-option-label">Empty property</span>
+                  <span class="gf-option-desc">Long-term empty</span>
+                </div>
+                <div class="gf-option" data-key="propertyType" data-val="commercial"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏬</span>
+                  <span class="gf-option-label">Commercial</span>
+                  <span class="gf-option-desc">Business or mixed-use</span>
+                </div>
+              </div>
+              <div class="gf-btn-row">
+                <button class="gf-btn gf-btn-ghost" data-prev-step="1">← Back</button>
+                <button class="gf-btn gf-btn-primary" data-next-step="3" id="gf-next-2" disabled>Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Tenure / ownership -->
+          <div class="gf-step" id="gf-step-3">
+            <div class="gf-card">
+              <h2>How is the property owned?</h2>
+              <p class="gf-card-subtitle">Some schemes are restricted by ownership type. Select the description that applies.</p>
+              <div class="gf-options" role="group" aria-label="Tenure and ownership">
+                <div class="gf-option" data-key="tenure" data-val="private-landlord"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">👤</span>
+                  <span class="gf-option-label">Private landlord</span>
+                  <span class="gf-option-desc">Individual / personal ownership</span>
+                </div>
+                <div class="gf-option" data-key="tenure" data-val="ltd-company"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏢</span>
+                  <span class="gf-option-label">Limited company</span>
+                  <span class="gf-option-desc">SPV or trading company</span>
+                </div>
+                <div class="gf-option" data-key="tenure" data-val="housing-association"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🤝</span>
+                  <span class="gf-option-label">Housing association</span>
+                  <span class="gf-option-desc">Registered or unregistered</span>
+                </div>
+                <div class="gf-option" data-key="tenure" data-val="registered-provider"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">📋</span>
+                  <span class="gf-option-label">Registered provider</span>
+                  <span class="gf-option-desc">RSL / RP regulated by RSH</span>
+                </div>
+                <div class="gf-option" data-key="tenure" data-val="charity"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">💚</span>
+                  <span class="gf-option-label">Charity</span>
+                  <span class="gf-option-desc">Registered charitable organisation</span>
+                </div>
+                <div class="gf-option" data-key="tenure" data-val="other"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">❓</span>
+                  <span class="gf-option-label">Other / unsure</span>
+                </div>
+              </div>
+              <div class="gf-btn-row">
+                <button class="gf-btn gf-btn-ghost" data-prev-step="2">← Back</button>
+                <button class="gf-btn gf-btn-primary" data-next-step="4" id="gf-next-3" disabled>Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: EPC rating -->
+          <div class="gf-step" id="gf-step-4">
+            <div class="gf-card">
+              <h2>What is the property's current EPC rating?</h2>
+              <p class="gf-card-subtitle">Many energy-efficiency schemes are targeted at lower-rated properties. If you don't know, select "Don't know".</p>
+              <div class="gf-options three-col" role="group" aria-label="EPC rating">
+                <div class="gf-option" data-key="epcRating" data-val="A"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🌿</span>
+                  <span class="gf-option-label">A</span>
+                </div>
+                <div class="gf-option" data-key="epcRating" data-val="B"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🟢</span>
+                  <span class="gf-option-label">B</span>
+                </div>
+                <div class="gf-option" data-key="epcRating" data-val="C"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🟡</span>
+                  <span class="gf-option-label">C</span>
+                </div>
+                <div class="gf-option" data-key="epcRating" data-val="D"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🟠</span>
+                  <span class="gf-option-label">D</span>
+                </div>
+                <div class="gf-option" data-key="epcRating" data-val="E"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🔴</span>
+                  <span class="gf-option-label">E</span>
+                </div>
+                <div class="gf-option" data-key="epcRating" data-val="F"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">🔴</span>
+                  <span class="gf-option-label">F</span>
+                </div>
+                <div class="gf-option" data-key="epcRating" data-val="G"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">⚫</span>
+                  <span class="gf-option-label">G</span>
+                </div>
+                <div class="gf-option" data-key="epcRating" data-val="unknown"
+                     tabindex="0" role="button" aria-pressed="false">
+                  <span class="gf-option-icon" aria-hidden="true">❓</span>
+                  <span class="gf-option-label">Don't know</span>
+                </div>
+              </div>
+              <div class="gf-btn-row">
+                <button class="gf-btn gf-btn-ghost" data-prev-step="3">← Back</button>
+                <button class="gf-btn gf-btn-primary" data-next-step="5" id="gf-next-4" disabled>Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 5: Planned works (multi-select) -->
+          <div class="gf-step" id="gf-step-5">
+            <div class="gf-card">
+              <h2>What works are planned?</h2>
+              <p class="gf-card-subtitle">Select all that apply. This helps identify the most relevant schemes.</p>
+              <div class="gf-options" role="group" aria-label="Planned works (select all that apply)">
+                <div class="gf-option multi" data-key="works" data-val="insulation"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">🧱</span>
+                  <span class="gf-option-label">Insulation</span>
+                  <span class="gf-option-desc">Loft, wall, floor</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="heat-pump"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">🌡</span>
+                  <span class="gf-option-label">Heat pump</span>
+                  <span class="gf-option-desc">Air or ground source</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="boiler-upgrade"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">🔥</span>
+                  <span class="gf-option-label">Boiler upgrade</span>
+                  <span class="gf-option-desc">Gas or oil boiler replacement</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="solar-pv"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">☀️</span>
+                  <span class="gf-option-label">Solar PV</span>
+                  <span class="gf-option-desc">Photovoltaic panels</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="battery-storage"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">🔋</span>
+                  <span class="gf-option-label">Battery storage</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="glazing"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">🪟</span>
+                  <span class="gf-option-label">Glazing</span>
+                  <span class="gf-option-desc">Windows and doors</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="ventilation"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">💨</span>
+                  <span class="gf-option-label">Ventilation</span>
+                  <span class="gf-option-desc">MVHR or similar</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="full-retrofit"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">🔧</span>
+                  <span class="gf-option-label">Full retrofit</span>
+                  <span class="gf-option-desc">Whole-house approach</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="disabled-adaptations"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">♿</span>
+                  <span class="gf-option-label">Disabled adaptations</span>
+                  <span class="gf-option-desc">Access, wet rooms, lifts</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="empty-home"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏚</span>
+                  <span class="gf-option-label">Empty home reno</span>
+                  <span class="gf-option-desc">Bringing back into use</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="heritage-repairs"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏛</span>
+                  <span class="gf-option-label">Heritage repairs</span>
+                  <span class="gf-option-desc">Listed building works</span>
+                </div>
+                <div class="gf-option multi" data-key="works" data-val="affordable-homes"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">🏘</span>
+                  <span class="gf-option-label">Affordable homes</span>
+                  <span class="gf-option-desc">New-build social/affordable</span>
+                </div>
+              </div>
+              <div class="gf-btn-row">
+                <button class="gf-btn gf-btn-ghost" data-prev-step="4">← Back</button>
+                <button class="gf-btn gf-btn-primary" data-next-step="6" id="gf-next-5" disabled>Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 6: Tenant circumstances (optional) -->
+          <div class="gf-step" id="gf-step-6">
+            <div class="gf-card">
+              <h2>
+                Tenant circumstances
+                <span class="gf-optional-label">optional</span>
+              </h2>
+              <p class="gf-card-subtitle">
+                Many retrofit schemes require tenants to meet certain criteria. Select all that apply, or skip.
+                This information is used only to filter scheme suggestions.
+              </p>
+              <div class="gf-options two-col" role="group" aria-label="Tenant circumstances (optional, select all that apply)">
+                <div class="gf-option multi" data-key="tenantCirc" data-val="low-income"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">💷</span>
+                  <span class="gf-option-label">Low income</span>
+                </div>
+                <div class="gf-option multi" data-key="tenantCirc" data-val="benefits"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">📄</span>
+                  <span class="gf-option-label">Means-tested benefits</span>
+                  <span class="gf-option-desc">UC, pension credit, etc.</span>
+                </div>
+                <div class="gf-option multi" data-key="tenantCirc" data-val="disabled"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">♿</span>
+                  <span class="gf-option-label">Disabled tenant</span>
+                </div>
+                <div class="gf-option multi" data-key="tenantCirc" data-val="elderly"
+                     tabindex="0" role="checkbox" aria-checked="false">
+                  <span class="gf-option-icon" aria-hidden="true">👴</span>
+                  <span class="gf-option-label">Elderly tenant</span>
+                </div>
+              </div>
+              <p style="font-size:13px;color:var(--gf-text-muted);margin-top:16px;">
+                If none apply or you prefer not to say, leave all deselected and click "Find schemes".
+              </p>
+              <div class="gf-btn-row">
+                <button class="gf-btn gf-btn-ghost" data-prev-step="5">← Back</button>
+                <button class="gf-btn gf-btn-primary" id="gf-wizard-submit">
+                  Find potentially relevant schemes →
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /gf-wizard-form -->
+
+        <!-- Wizard results (hidden until submit) -->
+        <div id="gf-wizard-results" class="gf-hidden">
+          <div class="gf-results-header">
+            <h2>Potentially relevant schemes</h2>
+            <span class="gf-results-count" id="gf-results-count" aria-live="polite">0</span>
+          </div>
+          <p class="gf-results-note">
+            The schemes below passed the basic criteria filters based on your selections.
+            This is not an eligibility assessment — always verify with the official source before acting.
+          </p>
+          <div id="gf-results-list" aria-live="polite"></div>
+          <div class="gf-reset-row">
+            <button class="gf-reset-btn" aria-label="Start a new search">
+              ← Start a new search
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <!-- /wizard-panel -->
+
+      <!-- ========================================================
+           BROWSE PANEL
+           ======================================================== -->
+      <div class="gf-panel" id="browse-panel" role="tabpanel" aria-labelledby="tab-browse">
+        <div class="gf-browse-layout">
+
+          <!-- Filter sidebar -->
+          <aside class="gf-filter-bar" aria-label="Filter schemes">
+            <h3>Filter schemes</h3>
+
+            <div class="gf-filter-group">
+              <label for="gf-browse-search">Search</label>
+              <input type="search" id="gf-browse-search" class="gf-search-input"
+                     placeholder="Search name, provider…"
+                     aria-label="Search schemes by name or provider">
+            </div>
+
+            <div class="gf-filter-group">
+              <label for="gf-filter-country">Country</label>
+              <select id="gf-filter-country" class="gf-filter-select" aria-label="Filter by country">
+                <option value="">All countries</option>
+                <option value="england">England</option>
+                <option value="scotland">Scotland</option>
+                <option value="wales">Wales</option>
+                <option value="northern-ireland">Northern Ireland</option>
+              </select>
+            </div>
+
+            <div class="gf-filter-group">
+              <label for="gf-filter-category">Category</label>
+              <select id="gf-filter-category" class="gf-filter-select" aria-label="Filter by category">
+                <option value="">All categories</option>
+                <option value="retrofit">Retrofit / Energy efficiency</option>
+                <option value="adaptation">Disability adaptations</option>
+                <option value="empty-homes">Empty homes</option>
+                <option value="heritage">Heritage</option>
+                <option value="affordable-housing">Affordable housing</option>
+                <option value="supported-housing">Supported housing</option>
+              </select>
+            </div>
+
+            <div class="gf-filter-group">
+              <label for="gf-filter-property">Property type</label>
+              <select id="gf-filter-property" class="gf-filter-select" aria-label="Filter by property type">
+                <option value="">All property types</option>
+                <option value="single-dwelling">Single dwelling</option>
+                <option value="flat">Flat</option>
+                <option value="hmo">HMO</option>
+                <option value="block">Block of flats</option>
+                <option value="listed">Listed building</option>
+                <option value="empty">Empty property</option>
+                <option value="commercial">Commercial</option>
+              </select>
+            </div>
+
+            <div class="gf-filter-group">
+              <label for="gf-filter-works">Works covered</label>
+              <select id="gf-filter-works" class="gf-filter-select" aria-label="Filter by works covered">
+                <option value="">All works</option>
+                <option value="insulation">Insulation</option>
+                <option value="heat-pump">Heat pump</option>
+                <option value="boiler-upgrade">Boiler upgrade</option>
+                <option value="solar-pv">Solar PV</option>
+                <option value="battery-storage">Battery storage</option>
+                <option value="glazing">Glazing</option>
+                <option value="ventilation">Ventilation</option>
+                <option value="full-retrofit">Full retrofit</option>
+                <option value="disabled-adaptations">Disabled adaptations</option>
+                <option value="empty-home">Empty home renovation</option>
+                <option value="heritage-repairs">Heritage repairs</option>
+                <option value="affordable-homes">Affordable homes (new build)</option>
+              </select>
+            </div>
+
+            <button id="gf-filter-clear" class="gf-filter-clear" aria-label="Clear all filters">
+              Clear all filters
+            </button>
+          </aside>
+
+          <!-- Browse results -->
+          <section aria-label="Browse results">
+            <p class="gf-browse-count" aria-live="polite" id="gf-browse-count">
+              Loading schemes…
+            </p>
+            <div id="gf-browse-list" aria-live="polite"></div>
+          </section>
+
+        </div>
+      </div>
+      <!-- /browse-panel -->
+
+    </div>
+    <!-- /gf-container -->
+  </main>
+
+  <!-- ========================================================
+       SCHEME DETAIL MODAL
+       ======================================================== -->
+  <div class="gf-modal-overlay" id="gf-modal-overlay" role="dialog"
+       aria-modal="true" aria-labelledby="gf-modal-title" hidden>
+    <div class="gf-modal">
+      <div class="gf-modal-header">
+        <div>
+          <h2 class="gf-modal-title" id="gf-modal-title"></h2>
+          <p class="gf-modal-provider" id="gf-modal-provider"></p>
+        </div>
+        <button class="gf-modal-close" id="gf-modal-close" aria-label="Close scheme detail">✕</button>
+      </div>
+      <div class="gf-modal-body">
+        <div id="gf-modal-body-content"></div>
+      </div>
+      <div class="gf-modal-footer">
+        <span class="gf-modal-verified-note" id="gf-modal-last-verified"></span>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <span id="gf-modal-funding" style="font-weight:700;color:var(--gf-primary);"></span>
+          <a href="#" id="gf-modal-official-link" target="_blank" rel="noopener noreferrer"
+             class="gf-btn gf-btn-primary" style="font-size:13px;">
+            View official scheme page ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="gf-footer" role="contentinfo">
+    <div class="gf-footer-inner">
+      <div>
+        <p><strong style="color:#fff;">UK Property Grant Finder</strong></p>
+        <p>Independent research tool — not affiliated with any scheme operator or government body.</p>
+        <p class="gf-footer-disclaimer">
+          This tool does not assess eligibility or provide advice.
+          Always verify on the official scheme page before acting.
+        </p>
+      </div>
+      <div>
+        <p><a href="about.html">About this tool</a></p>
+        <p><a href="https://github.com/" target="_blank" rel="noopener noreferrer">Report an error on GitHub</a></p>
+        <p style="font-size:12px;margin-top:8px;color:#6ee7b7;">MIT Licence</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK Landlord & Property Grant Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand:      #1a6e45;
+    --brand-light:#e8f5ee;
+    --brand-dark: #134f32;
+    --accent:     #f0a500;
+    --text:       #1a1a2e;
+    --muted:      #64748b;
+    --border:     #e2e8f0;
+    --bg:         #f8fafc;
+    --card:       #ffffff;
+    --radius:     12px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+
+  .widget {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .header .badge {
+    display: inline-block;
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .header p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Progress bar ── */
+  .progress-wrap {
+    margin-bottom: 28px;
+  }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .progress-labels span {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--brand), #2ecc71);
+    border-radius: 999px;
+    transition: width .4s ease;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .card .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* ── Option grid ── */
+  .options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  .options.two-col { grid-template-columns: 1fr 1fr; }
+  .options.three-col { grid-template-columns: repeat(3, 1fr); }
+
+  .option {
+    cursor: pointer;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+    transition: all .18s ease;
+    background: #fff;
+    user-select: none;
+  }
+  .option:hover { border-color: var(--brand); background: var(--brand-light); }
+  .option.selected {
+    border-color: var(--brand);
+    background: var(--brand-light);
+    box-shadow: 0 0 0 3px rgba(26,110,69,.15);
+  }
+  .option .icon { font-size: 24px; margin-bottom: 6px; display: block; }
+  .option .label { font-size: 13px; font-weight: 500; display: block; }
+  .option .desc  { font-size: 11px; color: var(--muted); display: block; margin-top: 3px; }
+
+  /* ── Buttons ── */
+  .btn-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    gap: 12px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all .18s ease;
+  }
+  .btn-primary {
+    background: var(--brand);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); }
+  .btn-primary:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--bg); color: var(--text); }
+
+  /* ── Results ── */
+  .results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .results-header h2 { font-size: 20px; font-weight: 700; }
+  .results-count {
+    background: var(--brand);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+
+  .grant-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: box-shadow .18s ease;
+  }
+  .grant-card:hover { box-shadow: var(--shadow); }
+
+  .grant-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    cursor: pointer;
+  }
+  .grant-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .cat-energy   { background: #fef3c7; }
+  .cat-finance  { background: #e0e7ff; }
+  .cat-housing  { background: #fce7f3; }
+  .cat-council  { background: #d1fae5; }
+  .cat-disabled { background: #ede9fe; }
+
+  .grant-meta { flex: 1; min-width: 0; }
+  .grant-name { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+  .grant-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  .tag-region  { background: #dbeafe; color: #1d4ed8; }
+  .tag-amount  { background: #dcfce7; color: #15803d; }
+  .tag-deadline{ background: #fef9c3; color: #854d0e; }
+  .tag-cat     { background: #f1f5f9; color: #475569; }
+
+  .grant-amount-pill {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--brand);
+    white-space: nowrap;
+    align-self: center;
+    padding: 5px 12px;
+    background: var(--brand-light);
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .grant-chevron {
+    color: var(--muted);
+    font-size: 18px;
+    align-self: center;
+    transition: transform .25s ease;
+    flex-shrink: 0;
+  }
+  .grant-card.open .grant-chevron { transform: rotate(180deg); }
+
+  .grant-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .grant-card.open .grant-body { display: block; }
+
+  .grant-body p { font-size: 14px; color: var(--muted); margin: 14px 0 10px; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  @media(max-width:480px){ .info-grid { grid-template-columns: 1fr; } }
+
+  .info-item {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .info-item .key {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .info-item .val { font-size: 13px; font-weight: 500; color: var(--text); }
+
+  .apply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    padding: 9px 18px;
+    background: var(--brand);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .18s;
+  }
+  .apply-btn:hover { background: var(--brand-dark); }
+
+  /* ── No results ── */
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .no-results .emoji { font-size: 40px; margin-bottom: 12px; }
+  .no-results h3 { font-size: 17px; margin-bottom: 6px; }
+  .no-results p { color: var(--muted); font-size: 14px; }
+
+  /* ── Reset ── */
+  .reset-row { text-align: center; margin-top: 20px; }
+  .reset-link {
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+    border: none;
+  }
+  .reset-link:hover { color: var(--text); }
+
+  /* ── Disclaimer ── */
+  .disclaimer {
+    margin-top: 20px;
+    padding: 12px 16px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #92400e;
+    line-height: 1.5;
+  }
+
+  /* ── Steps hidden by default ── */
+  .step { display: none; }
+  .step.active { display: block; }
+</style>
+</head>
+<body>
+<div class="widget">
+
+  <div class="header">
+    <div class="badge">Free Tool</div>
+    <h1>UK Landlord Grant Finder</h1>
+    <p>Answer a few questions about your property to discover grants, schemes, and funding you may be eligible for.</p>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-labels">
+      <span id="stepLabel">Step 1 of 5</span>
+      <span id="pct">20%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+  </div>
+
+  <!-- Step 1: Region -->
+  <div class="step active" id="step1">
+    <div class="card">
+      <h2>Where is your property?</h2>
+      <p class="subtitle">Grant availability varies significantly by nation and local authority.</p>
+      <div class="options two-col" id="opts-region">
+        <div class="option" data-key="region" data-val="england">
+          <span class="icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+          <span class="label">England</span>
+        </div>
+        <div class="option" data-key="region" data-val="scotland">
+          <span class="icon">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>
+          <span class="label">Scotland</span>
+        </div>
+        <div class="option" data-key="region" data-val="wales">
+          <span class="icon">🏴󠁧󠁢󠁷󠁬󠁳󠁿</span>
+          <span class="label">Wales</span>
+        </div>
+        <div class="option" data-key="region" data-val="northern_ireland">
+          <span class="icon">🇬🇧</span>
+          <span class="label">Northern Ireland</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <span></span>
+        <button class="btn btn-primary" id="next1" disabled>Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: Property type -->
+  <div class="step" id="step2">
+    <div class="card">
+      <h2>What type of property is it?</h2>
+      <p class="subtitle">Some grants are restricted to specific property types.</p>
+      <div class="options" id="opts-type">
+        <div class="option" data-key="type" data-val="house">
+          <span class="icon">🏡</span>
+          <span class="label">House</span>
+        </div>
+        <div class="option" data-key="type" data-val="flat">
+          <span class="icon">🏢</span>
+          <span class="label">Flat / Apartment</span>
+        </div>
+        <div class="option" data-key="type" data-val="bungalow">
+          <span class="icon">🏠</span>
+          <span class="label">Bungalow</span>
+        </div>
+        <div class="option" data-key="type" data-val="hmo">
+          <span class="icon">🏘️</span>
+          <span class="label">HMO</span>
+          <span class="desc">House in Multiple Occupation</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+        <button class="btn btn-primary" id="next2" disabled>Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3: EPC rating -->
+  <div class="step" id="step3">
+    <div class="card">
+      <h2>What is the current EPC rating?</h2>
+      <p class="subtitle">Energy Performance Certificate rating affects eligibility for most energy grants.</p>
+      <div class="options three-col" id="opts-epc">
+        <div class="option" data-key="epc" data-val="A"><span class="icon">🟢</span><span class="label">A</span><span class="desc">Very efficient</span></div>
+        <div class="option" data-key="epc" data-val="B"><span class="icon">🟢</span><span class="label">B</span></div>
+        <div class="option" data-key="epc" data-val="C"><span class="icon">🟡</span><span class="label">C</span></div>
+        <div class="option" data-key="epc" data-val="D"><span class="icon">🟡</span><span class="label">D</span></div>
+        <div class="option" data-key="epc" data-val="E"><span class="icon">🟠</span><span class="label">E</span></div>
+        <div class="option" data-key="epc" data-val="F"><span class="icon">🔴</span><span class="label">F</span></div>
+        <div class="option" data-key="epc" data-val="G"><span class="icon">🔴</span><span class="label">G</span><span class="desc">Least efficient</span></div>
+        <div class="option" data-key="epc" data-val="unknown"><span class="icon">❓</span><span class="label">Unknown</span></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(2)">← Back</button>
+        <button class="btn btn-primary" id="next3" disabled>Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: Heating type -->
+  <div class="step" id="step4">
+    <div class="card">
+      <h2>What heating system does the property have?</h2>
+      <p class="subtitle">Several schemes focus on upgrading or replacing specific heating types.</p>
+      <div class="options" id="opts-heating">
+        <div class="option" data-key="heating" data-val="gas_boiler">
+          <span class="icon">🔥</span><span class="label">Gas boiler</span>
+        </div>
+        <div class="option" data-key="heating" data-val="oil_boiler">
+          <span class="icon">🛢️</span><span class="label">Oil boiler</span>
+          <span class="desc">Off-gas grid</span>
+        </div>
+        <div class="option" data-key="heating" data-val="electric">
+          <span class="icon">⚡</span><span class="label">Electric heating</span>
+          <span class="desc">Storage heaters etc.</span>
+        </div>
+        <div class="option" data-key="heating" data-val="heat_pump">
+          <span class="icon">♻️</span><span class="label">Heat pump</span>
+        </div>
+        <div class="option" data-key="heating" data-val="none">
+          <span class="icon">❄️</span><span class="label">No central heating</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(3)">← Back</button>
+        <button class="btn btn-primary" id="next4" disabled>Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5: Tenant situation -->
+  <div class="step" id="step5">
+    <div class="card">
+      <h2>What best describes your current situation?</h2>
+      <p class="subtitle">Some grants are means-tested based on tenant income or occupancy status.</p>
+      <div class="options" id="opts-tenant">
+        <div class="option" data-key="tenant" data-val="market_rate">
+          <span class="icon">🏠</span><span class="label">Rented at market rate</span>
+        </div>
+        <div class="option" data-key="tenant" data-val="housing_benefit">
+          <span class="icon">💰</span><span class="label">Tenant on Housing Benefit / UC</span>
+        </div>
+        <div class="option" data-key="tenant" data-val="low_income">
+          <span class="icon">👥</span><span class="label">Tenant on low income / vulnerable</span>
+        </div>
+        <div class="option" data-key="tenant" data-val="empty">
+          <span class="icon">🔑</span><span class="label">Property currently empty</span>
+        </div>
+        <div class="option" data-key="tenant" data-val="disabled_tenant">
+          <span class="icon">♿</span><span class="label">Tenant with disability / health need</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(4)">← Back</button>
+        <button class="btn btn-primary" id="next5" disabled>See my grants →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="step" id="stepResults">
+    <div class="results-header">
+      <h2>Matching grants for you</h2>
+      <span class="results-count" id="resultsCount">0 found</span>
+    </div>
+    <div id="grantsList"></div>
+    <div class="disclaimer">
+      ⚠️ <strong>Disclaimer:</strong> Grant schemes, amounts, and eligibility criteria change frequently. This tool provides general guidance only. Always verify current details directly with the scheme provider or an accredited energy assessor before applying.
+    </div>
+    <div class="reset-row">
+      <button class="reset-link" onclick="reset()">← Start over with a different property</button>
+    </div>
+  </div>
+
+</div><!-- /widget -->
+
+<script>
+// ─────────────────────────────────────────────
+//  Grant database
+// ─────────────────────────────────────────────
+const GRANTS = [
+  {
+    id: 'boiler-upgrade-scheme',
+    name: 'Boiler Upgrade Scheme (BUS)',
+    category: 'energy',
+    icon: '🌡️',
+    amount: 'Up to £7,500',
+    description: 'Replaces fossil fuel boilers with air source heat pumps (£7,500), ground source heat pumps (£7,500), or biomass boilers (£5,000). Available to landlords as long as the property has a valid EPC with no outstanding loft or cavity wall insulation recommendations.',
+    regions: ['england', 'wales'],
+    epc: ['A','B','C','D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','none'],
+    tenant: ['market_rate','housing_benefit','low_income','empty'],
+    type: ['house','flat','bungalow','hmo'],
+    deadline: 'March 2028',
+    adminBody: 'Ofgem',
+    how: 'Apply via an MCS-certified heat pump or biomass installer — they submit the application on your behalf.',
+    link: 'https://www.gov.uk/apply-boiler-upgrade-scheme',
+    tags: ['England','Wales','Up to £7,500']
+  },
+  {
+    id: 'eco4',
+    name: 'ECO4 (Energy Company Obligation)',
+    category: 'energy',
+    icon: '🏗️',
+    amount: 'Fully funded (typical value £5,000–£15,000)',
+    description: 'Obligates large energy suppliers to fund insulation, heating upgrades, and low-carbon measures for low-income and vulnerable households. Landlords can access ECO4 if their tenant is in receipt of qualifying benefits. Works include loft/cavity wall/solid wall insulation, heat pumps, and first-time central heating.',
+    regions: ['england', 'scotland', 'wales'],
+    epc: ['D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','none'],
+    tenant: ['housing_benefit','low_income'],
+    type: ['house','flat','bungalow','hmo'],
+    deadline: 'March 2026',
+    adminBody: 'Energy suppliers / Ofgem',
+    how: 'Contact your tenant\'s energy supplier or an ECO4-registered installer. Landlord must consent to works.',
+    link: 'https://www.ofgem.gov.uk/environmental-and-social-schemes/energy-company-obligation-eco',
+    tags: ['England','Scotland','Wales','Benefit tenants']
+  },
+  {
+    id: 'gbis',
+    name: 'Great British Insulation Scheme (GBIS)',
+    category: 'energy',
+    icon: '🧱',
+    amount: 'Fully funded or heavily subsidised',
+    description: 'Focuses on single insulation measures — primarily cavity wall and loft insulation — for homes in Council Tax bands A–D (or E–G if the tenant is on qualifying benefits). Landlords can access this scheme; the tenant typically needs to be in a low-income group or the property in a lower CT band.',
+    regions: ['england', 'scotland', 'wales'],
+    epc: ['D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','none','heat_pump'],
+    tenant: ['housing_benefit','low_income','market_rate'],
+    type: ['house','flat','bungalow'],
+    deadline: 'March 2026',
+    adminBody: 'Ofgem / energy suppliers',
+    how: 'Contact an Ofgem-registered GBIS installer or your energy supplier.',
+    link: 'https://www.ofgem.gov.uk/environmental-and-social-schemes/great-british-insulation-scheme',
+    tags: ['England','Scotland','Wales','Insulation']
+  },
+  {
+    id: 'warm-homes-local',
+    name: 'Warm Homes: Local Grant',
+    category: 'energy',
+    icon: '🔆',
+    amount: 'Varies by local authority (typically £5,000–£20,000)',
+    description: 'The successor to ECO4 Flex and the Home Upgrade Grant, delivered through local authorities. Covers insulation, low-carbon heating, and solar PV for low-income households in the private rented sector. Eligibility and availability depends on your local authority.',
+    regions: ['england'],
+    epc: ['D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','none'],
+    tenant: ['housing_benefit','low_income'],
+    type: ['house','flat','bungalow','hmo'],
+    deadline: 'Ongoing from 2025',
+    adminBody: 'Local authorities',
+    how: 'Contact your local authority\'s energy efficiency team or check the GOV.UK Warm Homes hub.',
+    link: 'https://www.gov.uk/guidance/warm-homes-local-grant',
+    tags: ['England','Low income','Local authority']
+  },
+  {
+    id: 'home-upgrade-grant',
+    name: 'Home Upgrade Grant Phase 2 (HUG2)',
+    category: 'energy',
+    icon: '⚡',
+    amount: 'Up to £10,000 per property',
+    description: 'Targets off-gas-grid low-income homes. Funds insulation and low-carbon heating (heat pumps, solar PV). Available to private landlords if the tenant is in receipt of means-tested benefits. Delivered by local authorities using DESNZ funding.',
+    regions: ['england'],
+    epc: ['E','F','G','unknown'],
+    heating: ['oil_boiler','electric','none'],
+    tenant: ['housing_benefit','low_income'],
+    type: ['house','bungalow'],
+    deadline: 'March 2025 (some extensions possible)',
+    adminBody: 'Local authorities',
+    how: 'Contact your local authority — some areas still have remaining HUG2 funding.',
+    link: 'https://www.gov.uk/government/publications/home-upgrade-grant-hug',
+    tags: ['England','Off-gas grid','Low income']
+  },
+  {
+    id: 'bus-scotland',
+    name: 'Home Energy Scotland (HES) Grant & Loan',
+    category: 'energy',
+    icon: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+    amount: 'Grant up to £15,000 + optional loan up to £15,000',
+    description: 'Scottish Government scheme for owner-occupiers and landlords to install renewable heating and insulation. Private landlords may be eligible for grants of up to £9,000 for heat pumps plus additional top-up funding. The accompanying loan can cover up to £15,000 at 0% interest.',
+    regions: ['scotland'],
+    epc: ['A','B','C','D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','none'],
+    tenant: ['market_rate','housing_benefit','low_income','empty'],
+    type: ['house','flat','bungalow'],
+    deadline: 'Ongoing',
+    adminBody: 'Home Energy Scotland (Energy Saving Trust)',
+    how: 'Call Home Energy Scotland on 0808 808 2282 or apply online.',
+    link: 'https://www.homeenergyscotland.org/grants-and-loans/overview/',
+    tags: ['Scotland','Up to £15,000','Loan available']
+  },
+  {
+    id: 'nest-wales',
+    name: 'Nest (Welsh Government)',
+    category: 'energy',
+    icon: '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
+    amount: 'Fully funded (means-tested)',
+    description: 'Welsh Government scheme providing free energy efficiency improvements to households where someone is in receipt of a means-tested benefit or is on a low income. Private landlords can access Nest if their tenants qualify. Measures include insulation, boiler replacement, and renewable heating.',
+    regions: ['wales'],
+    epc: ['D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','none'],
+    tenant: ['housing_benefit','low_income'],
+    type: ['house','flat','bungalow'],
+    deadline: 'Ongoing',
+    adminBody: 'Welsh Government',
+    how: 'Apply via the Nest Wales website or call 0808 808 2244.',
+    link: 'https://www.nestwales.org.uk/',
+    tags: ['Wales','Free','Means-tested']
+  },
+  {
+    id: 'warm-homes-ni',
+    name: 'Affordable Warmth Scheme (NI)',
+    category: 'energy',
+    icon: '🇬🇧',
+    amount: 'Up to £10,000',
+    description: 'Northern Ireland scheme targeting low-income households in the private rented and owner-occupied sector. Funds insulation and heating improvements. Landlords can access if tenants are on qualifying benefits.',
+    regions: ['northern_ireland'],
+    epc: ['D','E','F','G','unknown'],
+    heating: ['oil_boiler','electric','none','gas_boiler'],
+    tenant: ['housing_benefit','low_income'],
+    type: ['house','flat','bungalow'],
+    deadline: 'Ongoing',
+    adminBody: 'NI Housing Executive',
+    how: 'Apply via the NI Housing Executive website or call 03448 920 900.',
+    link: 'https://www.nihe.gov.uk/housing-help/affordable-warmth',
+    tags: ['Northern Ireland','Up to £10,000']
+  },
+  {
+    id: 'disabled-facilities-grant',
+    name: 'Disabled Facilities Grant (DFG)',
+    category: 'disabled',
+    icon: '♿',
+    amount: 'Up to £30,000 (England), £36,000 (Wales)',
+    description: 'Mandatory grant from local authorities to fund adaptations that help a disabled tenant live independently — ramps, stairlifts, widened doorways, wet rooms etc. Available in the private rented sector; the tenant applies and the landlord must give consent. The grant is means-tested based on the tenant\'s finances, not the landlord\'s.',
+    regions: ['england','wales','northern_ireland'],
+    epc: ['A','B','C','D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','heat_pump','none'],
+    tenant: ['disabled_tenant'],
+    type: ['house','flat','bungalow','hmo'],
+    deadline: 'Ongoing (mandatory)',
+    adminBody: 'Local authority',
+    how: 'Tenant applies to the local authority; landlord consent form required. An occupational therapist assessment is normally needed.',
+    link: 'https://www.gov.uk/disabled-facilities-grants',
+    tags: ['England','Wales','NI','Up to £30,000','Disabled tenants']
+  },
+  {
+    id: 'empty-homes',
+    name: 'Local Empty Homes Grants',
+    category: 'housing',
+    icon: '🔑',
+    amount: 'Varies by LA (often £5,000–£25,000)',
+    description: 'Many local authorities offer grants or interest-free loans to bring long-term empty properties back into use. Properties must usually have been empty for at least 6–12 months. Some require the landlord to let to council nominees or housing association tenants for a fixed period in return for the grant.',
+    regions: ['england','scotland','wales','northern_ireland'],
+    epc: ['A','B','C','D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','heat_pump','none'],
+    tenant: ['empty'],
+    type: ['house','flat','bungalow'],
+    deadline: 'Ongoing (varies by LA)',
+    adminBody: 'Local authority empty homes team',
+    how: 'Contact your local authority\'s housing or empty homes team. Search via the Empty Homes Network.',
+    link: 'https://www.emptyhomes.com/',
+    tags: ['All UK','Empty property']
+  },
+  {
+    id: 'landlord-incentive-scheme',
+    name: 'Local Authority Private Rented Incentive Schemes',
+    category: 'housing',
+    icon: '🤝',
+    amount: 'Up to £5,000 (cash) + rent guarantee',
+    description: 'Many councils offer cash incentives or deposit bonds to landlords who let to homeless households, care leavers, or those referred by the council. Payments typically range from £1,000–£5,000 and often include a rent guarantee period. Availability is highly localised.',
+    regions: ['england','scotland','wales','northern_ireland'],
+    epc: ['A','B','C','D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','heat_pump','none'],
+    tenant: ['housing_benefit','empty'],
+    type: ['house','flat','bungalow','hmo'],
+    deadline: 'Ongoing (varies by LA)',
+    adminBody: 'Local authority housing team',
+    how: 'Contact your local council\'s homelessness prevention or private sector access team.',
+    link: 'https://england.shelter.org.uk/housing_advice/renting_privately/landlord_incentive_schemes',
+    tags: ['All UK','Council nominees','Rent guarantee']
+  },
+  {
+    id: 'solar-together',
+    name: 'Solar Together / Group Solar Schemes',
+    category: 'energy',
+    icon: '☀️',
+    amount: 'Discounted installation (£3,000–£6,000 typical)',
+    description: 'Group-buying schemes run by local authorities and iChoosr that let landlords and homeowners purchase solar PV (and sometimes batteries) at reduced cost through collective procurement. Not a grant but significantly reduces installation cost. Available in many English counties and Scottish regions.',
+    regions: ['england','scotland','wales'],
+    epc: ['A','B','C','D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','heat_pump','none'],
+    tenant: ['market_rate','housing_benefit','low_income','empty'],
+    type: ['house','bungalow'],
+    deadline: 'Annual registration windows',
+    adminBody: 'iChoosr / local authority',
+    how: 'Register during your local authority\'s Solar Together registration window.',
+    link: 'https://solartogether.co.uk/',
+    tags: ['England','Scotland','Wales','Solar','Group buying']
+  },
+  {
+    id: 'mees-compliance-support',
+    name: 'MEES Compliance — Local Authority Support',
+    category: 'finance',
+    icon: '📋',
+    amount: 'Varies (subsidised or grant-funded)',
+    description: 'Since April 2023, all privately rented homes in England and Wales require a minimum EPC rating of E. Several local authorities offer subsidised assessments and improvement funding to help landlords comply before stricter C-rated rules come into force. Not a national scheme — availability is patchy.',
+    regions: ['england','wales'],
+    epc: ['F','G'],
+    heating: ['gas_boiler','oil_boiler','electric','heat_pump','none'],
+    tenant: ['market_rate','housing_benefit','low_income'],
+    type: ['house','flat','bungalow','hmo'],
+    deadline: 'Ongoing',
+    adminBody: 'Local authority',
+    how: 'Contact your local authority\'s private sector housing team. Useful to act now ahead of expected C-rated MEES requirements.',
+    link: 'https://www.gov.uk/guidance/domestic-private-rented-property-minimum-energy-efficiency-standard-landlord-guidance',
+    tags: ['England','Wales','EPC F or G']
+  },
+  {
+    id: 'landlord-energy-saving',
+    name: 'Landlord Tax Incentives (Energy Measures)',
+    category: 'finance',
+    icon: '💷',
+    amount: 'Tax deduction on allowable energy works',
+    description: 'Landlords can claim costs of energy efficiency improvements as a deductible expense against rental income for tax purposes. This includes insulation, draught-proofing, and some heating upgrades. Works are classed as repairs or capital improvements depending on nature. Combined with grants, effective cost can be very low.',
+    regions: ['england','scotland','wales','northern_ireland'],
+    epc: ['A','B','C','D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','heat_pump','none'],
+    tenant: ['market_rate','housing_benefit','low_income','empty','disabled_tenant'],
+    type: ['house','flat','bungalow','hmo'],
+    deadline: 'Ongoing',
+    adminBody: 'HMRC',
+    how: 'Claim on your Self Assessment tax return. Consult an accountant for capital vs revenue treatment.',
+    link: 'https://www.gov.uk/expenses-if-youre-self-employed',
+    tags: ['All UK','Tax relief']
+  },
+  {
+    id: 'warmer-homes-scotland',
+    name: 'Warmer Homes Scotland',
+    category: 'energy',
+    icon: '🔆',
+    amount: 'Up to £15,000 (fully funded for eligible)',
+    description: 'Scottish Government scheme for owner-occupiers and private tenants in fuel poverty. Landlords cannot apply directly, but eligible tenants can obtain improvements funded 100%, which may include insulation, heating controls, and renewable heating — all installed at no cost to the landlord. Landlord consent is required.',
+    regions: ['scotland'],
+    epc: ['D','E','F','G','unknown'],
+    heating: ['gas_boiler','oil_boiler','electric','none'],
+    tenant: ['housing_benefit','low_income'],
+    type: ['house','flat','bungalow'],
+    deadline: 'Ongoing',
+    adminBody: 'Home Energy Scotland',
+    how: 'Tenant applies via Home Energy Scotland; landlord provides consent. Call 0808 808 2282.',
+    link: 'https://www.homeenergyscotland.org/help-with-costs/warmer-homes-scotland/',
+    tags: ['Scotland','Fuel poverty','Fully funded']
+  }
+];
+
+// ─────────────────────────────────────────────
+//  State
+// ─────────────────────────────────────────────
+const state = { region: null, type: null, epc: null, heating: null, tenant: null };
+let currentStep = 1;
+const TOTAL_STEPS = 5;
+
+// ─────────────────────────────────────────────
+//  Wiring options
+// ─────────────────────────────────────────────
+function wireOptions(groupId, stateKey, nextBtnId) {
+  const container = document.getElementById(groupId);
+  if (!container) return;
+  container.querySelectorAll('.option').forEach(el => {
+    el.addEventListener('click', () => {
+      container.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      state[stateKey] = el.dataset.val;
+      const btn = document.getElementById(nextBtnId);
+      if (btn) btn.disabled = false;
+    });
+  });
+}
+
+wireOptions('opts-region',  'region',  'next1');
+wireOptions('opts-type',    'type',    'next2');
+wireOptions('opts-epc',     'epc',     'next3');
+wireOptions('opts-heating', 'heating', 'next4');
+wireOptions('opts-tenant',  'tenant',  'next5');
+
+document.getElementById('next1').addEventListener('click', () => goStep(2));
+document.getElementById('next2').addEventListener('click', () => goStep(3));
+document.getElementById('next3').addEventListener('click', () => goStep(4));
+document.getElementById('next4').addEventListener('click', () => goStep(5));
+document.getElementById('next5').addEventListener('click', () => showResults());
+
+// ─────────────────────────────────────────────
+//  Navigation
+// ─────────────────────────────────────────────
+function goStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+  currentStep = n;
+  updateProgress(n, TOTAL_STEPS);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress(step, total) {
+  const pct = Math.round((step / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('stepLabel').textContent = 'Step ' + step + ' of ' + total;
+}
+
+// ─────────────────────────────────────────────
+//  Results
+// ─────────────────────────────────────────────
+function matchGrant(g) {
+  return (
+    g.regions.includes(state.region) &&
+    g.type.includes(state.type) &&
+    g.epc.includes(state.epc) &&
+    g.heating.includes(state.heating) &&
+    g.tenant.includes(state.tenant)
+  );
+}
+
+const CAT_LABELS = {
+  energy:   { label: 'Energy Efficiency', cls: 'cat-energy' },
+  finance:  { label: 'Finance / Tax',     cls: 'cat-finance' },
+  housing:  { label: 'Housing',           cls: 'cat-housing' },
+  council:  { label: 'Council Scheme',    cls: 'cat-council' },
+  disabled: { label: 'Accessibility',     cls: 'cat-disabled' }
+};
+
+function showResults() {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('stepResults').classList.add('active');
+  document.getElementById('progressWrap').style.display = 'none';
+
+  const matches = GRANTS.filter(matchGrant);
+  const list = document.getElementById('grantsList');
+  const countEl = document.getElementById('resultsCount');
+
+  countEl.textContent = matches.length + ' found';
+  list.innerHTML = '';
+
+  if (matches.length === 0) {
+    list.innerHTML = `
+      <div class="no-results">
+        <div class="emoji">🔍</div>
+        <h3>No exact matches found</h3>
+        <p>Based on your answers, no current national schemes precisely match your property profile — but local authority schemes may still be available. Contact your local council's housing team for tailored advice.</p>
+      </div>`;
+    return;
+  }
+
+  matches.forEach(g => {
+    const cat = CAT_LABELS[g.category] || { label: g.category, cls: 'cat-council' };
+    const tagsHtml = g.tags.map(t => `<span class="tag tag-region">${t}</span>`).join('');
+    const card = document.createElement('div');
+    card.className = 'grant-card';
+    card.innerHTML = `
+      <div class="grant-header" onclick="toggleCard(this.parentElement)">
+        <div class="grant-icon ${cat.cls}">${g.icon}</div>
+        <div class="grant-meta">
+          <div class="grant-name">${g.name}</div>
+          <div class="grant-tags">
+            <span class="tag tag-cat">${cat.label}</span>
+            ${tagsHtml}
+          </div>
+        </div>
+        <div class="grant-amount-pill">${g.amount.split('(')[0].trim()}</div>
+        <div class="grant-chevron">▼</div>
+      </div>
+      <div class="grant-body">
+        <p>${g.description}</p>
+        <div class="info-grid">
+          <div class="info-item"><div class="key">Maximum amount</div><div class="val">${g.amount}</div></div>
+          <div class="info-item"><div class="key">Administered by</div><div class="val">${g.adminBody}</div></div>
+          <div class="info-item"><div class="key">Deadline / Duration</div><div class="val">${g.deadline}</div></div>
+          <div class="info-item"><div class="key">How to apply</div><div class="val">${g.how}</div></div>
+        </div>
+        <a class="apply-btn" href="${g.link}" target="_blank" rel="noopener">Find out more ↗</a>
+      </div>`;
+    list.appendChild(card);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+function reset() {
+  Object.keys(state).forEach(k => state[k] = null);
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.btn-primary').forEach(b => b.disabled = true);
+  document.getElementById('progressWrap').style.display = '';
+  goStep(1);
+  updateProgress(1, TOTAL_STEPS);
+  document.getElementById('stepResults').classList.remove('active');
+  document.getElementById('step1').classList.add('active');
+}
+</script>
+</body>
+</html>

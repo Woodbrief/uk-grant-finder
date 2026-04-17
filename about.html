@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — UK Property Grant Finder</title>
+  <meta name="description" content="About the UK Property Grant Finder: an independent research tool collating publicly available information on UK property grant schemes. Not an advisory service.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <!-- ── Persistent disclaimer banner ── -->
+  <div class="gf-disclaimer" role="banner" aria-label="Important notice">
+    <div class="gf-disclaimer-inner">
+      <span class="gf-disclaimer-icon" aria-hidden="true">ℹ</span>
+      <span>
+        <strong>Research tool only.</strong>
+        This is a free research tool that signposts publicly available UK grant schemes.
+        It does not assess eligibility or provide advice.
+        Always verify current eligibility, funding levels, and deadlines on the official scheme page before acting.
+      </span>
+    </div>
+  </div>
+
+  <!-- ── Site header ── -->
+  <header class="gf-site-header" role="banner">
+    <div class="gf-site-header-inner">
+      <a href="index.html" class="gf-site-logo" aria-label="UK Property Grant Finder home">
+        🌿 UK Property Grant Finder
+      </a>
+      <nav class="gf-site-nav" aria-label="Main navigation">
+        <a href="index.html" class="gf-nav-link">Finder</a>
+        <a href="about.html" class="gf-nav-link active" aria-current="page">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Main content ── -->
+  <main class="gf-main" id="main-content">
+    <div class="gf-container">
+      <article class="gf-about-layout">
+
+        <h1>About this tool</h1>
+        <p class="gf-lead">
+          This is an independent research project that collates publicly available information
+          about UK grants and funding schemes relevant to property works.
+          It is not a commercial service, not an advisory tool, and not affiliated with any
+          scheme operator or government body.
+        </p>
+
+        <!-- Non-advisory disclaimer box -->
+        <div class="gf-disclaimer-box" role="note">
+          <p>
+            <strong>Not advice.</strong>
+            Nothing on this site constitutes financial, legal, tax, or professional advice of any kind.
+            Grant eligibility, funding levels, and deadlines change regularly.
+            The tool signposts you to official sources — it does not determine whether any scheme applies
+            to your specific circumstances.
+            Always verify current eligibility, funding levels, and deadlines directly on the official
+            scheme page before committing to any works or expenditure.
+          </p>
+        </div>
+
+        <!-- Background -->
+        <section class="gf-about-section" aria-labelledby="background-heading">
+          <h2 id="background-heading">Background</h2>
+          <p>
+            My background is in sustainability and environmental regulation — not property, housing,
+            or financial advice. I hold an MSc in sustainability and have worked in packaging and
+            environmental regulation, with a forthcoming book on practical sustainability.
+          </p>
+          <p>
+            In researching material for that work, it became clear that publicly available information
+            on UK property-related grant schemes is fragmented across dozens of government and devolved
+            administration websites, with no neutral, non-commercial signposting tool covering the
+            full range of scheme types and UK nations.
+          </p>
+          <p>
+            This tool is the result of that research gap. Every scheme listed here links straight to
+            its official source. There is no commercial relationship with any scheme operator,
+            installer, or intermediary.
+          </p>
+        </section>
+
+        <!-- Methodology -->
+        <section class="gf-about-section" aria-labelledby="methodology-heading">
+          <h2 id="methodology-heading">Methodology</h2>
+
+          <h3>Selection criteria</h3>
+          <p>
+            Schemes are included if they meet all of the following criteria:
+          </p>
+          <ul>
+            <li>The scheme is publicly available — not restricted to closed procurement or invited bidders only.</li>
+            <li>An official source URL exists on a government, devolved administration, regulator, or statutory body website.</li>
+            <li>The scheme is relevant to property works (retrofit, adaptation, heritage repair, empty homes, or affordable housing supply).</li>
+            <li>The scheme is currently open, recently closed (with successors noted), or in a confirmed pipeline.</li>
+          </ul>
+          <p>
+            Schemes are excluded if they are purely commercial products (e.g. green mortgages),
+            tied to a specific installer or supplier relationship, or if no reliable official source URL
+            can be confirmed.
+          </p>
+
+          <h3>Verification cycle</h3>
+          <p>
+            Each scheme entry records a <code>lastVerified</code> date in <code>YYYY-MM</code> format.
+            The aim is to review all entries on a quarterly cycle, checking:
+          </p>
+          <ul>
+            <li>Whether the scheme is still open and accepting applications.</li>
+            <li>Whether funding levels, deadlines, or eligibility criteria have changed.</li>
+            <li>Whether the official URL remains valid.</li>
+          </ul>
+          <p>
+            Entries with a <code>verify: true</code> flag contain one or more fields that could not be
+            confirmed directly from the official source at the time of writing and should be treated
+            with additional caution.
+          </p>
+
+          <h3>What this tool does not do</h3>
+          <ul>
+            <li>It does not collect or store any personal data entered into the wizard.</li>
+            <li>It does not contact scheme operators on your behalf.</li>
+            <li>It does not recommend specific installers, advisers, or intermediaries.</li>
+            <li>It does not make any determination of eligibility.</li>
+          </ul>
+        </section>
+
+        <!-- How to contribute -->
+        <section class="gf-about-section" aria-labelledby="contribute-heading">
+          <h2 id="contribute-heading">How to contribute or report errors</h2>
+          <p>
+            The scheme data lives in <code>data/grants.json</code> in the
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+            (link to be added when the repository is public).
+            The schema is documented in <code>data/schema.md</code>.
+          </p>
+
+          <h3>To add a new scheme</h3>
+          <ol>
+            <li>Fork the repository and edit <code>data/grants.json</code>.</li>
+            <li>Add a new entry following the schema in <code>data/schema.md</code>.</li>
+            <li>Set <code>lastVerified</code> to the current month.</li>
+            <li>Include the official URL — no scheme without a direct official source link will be accepted.</li>
+            <li>Open a pull request describing the scheme and linking to the official source.</li>
+          </ol>
+
+          <h3>To correct an existing entry</h3>
+          <ol>
+            <li>Open a GitHub Issue describing the error, linking to the official source that contradicts the current entry.</li>
+            <li>Or open a pull request with the correction and an updated <code>lastVerified</code> date.</li>
+          </ol>
+
+          <h3>To report a broken link or closed scheme</h3>
+          <p>
+            Open a GitHub Issue with the scheme name and the correct or updated URL.
+          </p>
+        </section>
+
+        <!-- Theming -->
+        <section class="gf-about-section" aria-labelledby="theming-heading">
+          <h2 id="theming-heading">Embedding and theming</h2>
+          <p>
+            This tool can be embedded in any website — including Ghost — via an iframe or script tag.
+            The CSS uses custom properties under <code>:root</code> so colours can be overridden to
+            match any host theme:
+          </p>
+          <pre style="background:var(--gf-bg-off);border:1px solid var(--gf-border);border-radius:8px;padding:16px;font-size:13px;overflow-x:auto;"><code>:root {
+  --gf-primary:       #1B3D2F;
+  --gf-primary-light: #2D6A4F;
+  --gf-accent:        #4A9473;
+  --gf-bg:            #ffffff;
+  --gf-bg-off:        #f7f9f8;
+  --gf-text:          #1a1a1a;
+  --gf-text-muted:    #6b7280;
+  --gf-border:        #e5e7eb;
+}</code></pre>
+          <p>
+            See the <a href="https://github.com/" target="_blank" rel="noopener noreferrer">README</a>
+            for full embed instructions, including iframe and script-tag methods.
+          </p>
+        </section>
+
+        <!-- Licence -->
+        <section class="gf-about-section" aria-labelledby="licence-heading">
+          <h2 id="licence-heading">Licence</h2>
+          <p>
+            This project is published under the
+            <a href="LICENSE" target="_blank" rel="noopener noreferrer">MIT Licence</a>.
+            You are free to use, copy, modify, and distribute the code and data, subject to the
+            licence terms. Scheme data sourced from official government and regulator websites
+            remains subject to the licence terms of those original sources (typically
+            <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/" target="_blank" rel="noopener noreferrer">Open Government Licence v3.0</a>
+            for UK public sector content).
+          </p>
+        </section>
+
+        <div style="margin-top:32px;">
+          <a href="index.html" class="gf-btn gf-btn-primary">← Back to Grant Finder</a>
+        </div>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="gf-footer" role="contentinfo">
+    <div class="gf-footer-inner">
+      <div>
+        <p><strong style="color:#fff;">UK Property Grant Finder</strong></p>
+        <p>Independent research tool — not affiliated with any scheme operator or government body.</p>
+        <p class="gf-footer-disclaimer">
+          This tool does not assess eligibility or provide advice.
+          Always verify on the official scheme page before acting.
+        </p>
+      </div>
+      <div>
+        <p><a href="about.html">About this tool</a></p>
+        <p><a href="https://github.com/" target="_blank" rel="noopener noreferrer">Report an error on GitHub</a></p>
+        <p style="font-size:12px;margin-top:8px;color:#6ee7b7;">MIT Licence</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
