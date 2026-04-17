@@ -63,27 +63,6 @@
           </p>
         </div>
 
-        <!-- Background -->
-        <section class="gf-about-section" aria-labelledby="background-heading">
-          <h2 id="background-heading">Background</h2>
-          <p>
-            My background is in sustainability and environmental regulation  -  not property, housing,
-            or financial advice. I hold an MSc in sustainability and have worked in packaging and
-            environmental regulation, with a forthcoming book on practical sustainability.
-          </p>
-          <p>
-            In researching material for that work, it became clear that publicly available information
-            on UK property-related grant schemes is fragmented across dozens of government and devolved
-            administration websites, with no neutral, non-commercial signposting tool covering the
-            full range of scheme types and UK nations.
-          </p>
-          <p>
-            This tool is the result of that research gap. Every scheme listed here links straight to
-            its official source. There is no commercial relationship with any scheme operator,
-            installer, or intermediary.
-          </p>
-        </section>
-
         <!-- Methodology -->
         <section class="gf-about-section" aria-labelledby="methodology-heading">
           <h2 id="methodology-heading">Methodology</h2>
@@ -127,61 +106,6 @@
             <li>It does not recommend specific installers, advisers, or intermediaries.</li>
             <li>It does not make any determination of eligibility.</li>
           </ul>
-        </section>
-
-        <!-- How to contribute -->
-        <section class="gf-about-section" aria-labelledby="contribute-heading">
-          <h2 id="contribute-heading">How to contribute or report errors</h2>
-          <p>
-            The scheme data lives in <code>data/grants.json</code> in the
-            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub repository</a>
-            (link to be added when the repository is public).
-            The schema is documented in <code>data/schema.md</code>.
-          </p>
-
-          <h3>To add a new scheme</h3>
-          <ol>
-            <li>Fork the repository and edit <code>data/grants.json</code>.</li>
-            <li>Add a new entry following the schema in <code>data/schema.md</code>.</li>
-            <li>Set <code>lastVerified</code> to the current month.</li>
-            <li>Include the official URL  -  no scheme without a direct official source link will be accepted.</li>
-            <li>Open a pull request describing the scheme and linking to the official source.</li>
-          </ol>
-
-          <h3>To correct an existing entry</h3>
-          <ol>
-            <li>Open a GitHub Issue describing the error, linking to the official source that contradicts the current entry.</li>
-            <li>Or open a pull request with the correction and an updated <code>lastVerified</code> date.</li>
-          </ol>
-
-          <h3>To report a broken link or closed scheme</h3>
-          <p>
-            Open a GitHub Issue with the scheme name and the correct or updated URL.
-          </p>
-        </section>
-
-        <!-- Theming -->
-        <section class="gf-about-section" aria-labelledby="theming-heading">
-          <h2 id="theming-heading">Embedding and theming</h2>
-          <p>
-            This tool can be embedded in any website  -  including Ghost  -  via an iframe or script tag.
-            The CSS uses custom properties under <code>:root</code> so colours can be overridden to
-            match any host theme:
-          </p>
-          <pre style="background:var(--gf-bg-off);border:1px solid var(--gf-border);border-radius:8px;padding:16px;font-size:13px;overflow-x:auto;"><code>:root {
-  --gf-primary:       #1B3D2F;
-  --gf-primary-light: #2D6A4F;
-  --gf-accent:        #4A9473;
-  --gf-bg:            #ffffff;
-  --gf-bg-off:        #f7f9f8;
-  --gf-text:          #1a1a1a;
-  --gf-text-muted:    #6b7280;
-  --gf-border:        #e5e7eb;
-}</code></pre>
-          <p>
-            See the <a href="https://github.com/" target="_blank" rel="noopener noreferrer">README</a>
-            for full embed instructions, including iframe and script-tag methods.
-          </p>
         </section>
 
         <!-- Licence -->
